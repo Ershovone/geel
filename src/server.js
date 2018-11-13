@@ -11,6 +11,9 @@ import fs from 'fs';
 import bodyParser from 'body-parser';
 const app = express();
 const server  = require('http').createServer(app);
+let nodemailer = require('nodemailer');
+import { UserModel } from './models/userName';
+import passport from 'passport';
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
@@ -22,6 +25,56 @@ const redisClient = redis.createClient();
 
 const config = require('../config');
 
+app.post('/registration', (req, res) => {
+  if (req.body.name && req.body.email) {
+    let userData = {
+      name: req.body.name,
+      email: req.body.email
+    };
+
+    UserModel.create(userData, (err,  user) => {
+      if (err) {
+        return err;
+      } else {
+        return res.redirect('/profile');
+      }
+    })
+  }
+});
+
+app.post('/api/sendUser', (req, res) => {
+  const transporter = nodemailer.createTransport({
+    pool: true,
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: {
+      user: 'ershov.one@gmail.com',
+      pass: config.pass
+    }
+  });
+  const mailOptions = {
+    from: 'ershov.one@gmail.com',
+    to: 'andrei.ershov@global-finance.pro',
+    subject: 'Новый пользователь',
+    html: `
+        <div>
+          <p>Имя соискателя: ${req.body.name}</p>
+          <p>Электронный адрес: ${req.body.email}</p>
+          <p>Текст: ${req.body.text}</p>
+        </div>
+      `
+  };
+
+  transporter.sendMail(mailOptions, (error) => {
+    if (error) {
+      
+      console.error(error);
+      return res.status(500).send('error');
+    }
+    return res.status(200).send('done');
+  });
+});
 
 app.use((req, res) => {
   return renderHTML(req, res);

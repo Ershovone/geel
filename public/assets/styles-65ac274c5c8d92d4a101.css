@@ -1,0 +1,69 @@
+.header{display:flex;height:65px;box-shadow:0 3px 10px #0000001a}.header__container{display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;flex:0 0 100%}.header__logo{width:49px;height:53px;margin-right:15px}.header__position{display:flex;align-items:center}.header__point{width:14px;height:14px;margin-right:3px}.header__col{display:flex}.header__text{font-weight:600;margin-left:30px}body {
+    margin: 0;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-weight: 200;
+    src: local('\263A'),
+    url(cb4b19f371465b0b576cffa4d093685c.woff2) format('woff2'),
+    url(9da5c546a33ec2384a45e5b51c641314.woff) format('woff'),
+    url(522eb1630730c5e01076e8303a6be07d.ttf) format('ttf');
+}
+@font-face {
+    font-family: 'Montserrat';
+    font-weight: 300;
+    src: local('\263A'),
+    url(cb4b19f371465b0b576cffa4d093685c.woff2) format('woff2'),
+    url(9da5c546a33ec2384a45e5b51c641314.woff) format('woff'),
+    url(522eb1630730c5e01076e8303a6be07d.ttf) format('ttf');
+}
+@font-face {
+    font-family: 'Montserrat';
+    font-weight: 400;
+    src: local('\263A'),
+    url(882be49848bec56a02bd94e41ea9dfd9.woff2) format('woff2'),
+    url(12b1959150a1d85a1326afa99f39833f.woff) format('woff'),
+    url(d0e19a25984d8b384a56d17373b49d80.ttf) format('ttf');
+}
+@font-face {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    src: local('\263A'),
+    url(882be49848bec56a02bd94e41ea9dfd9.woff2) format('woff2'),
+    url(12b1959150a1d85a1326afa99f39833f.woff) format('woff'),
+    url(d0e19a25984d8b384a56d17373b49d80.ttf) format('ttf');
+}
+@font-face {
+    font-family: 'Montserrat';
+    font-weight: 600;
+    src: local('\263A'),
+    url(882be49848bec56a02bd94e41ea9dfd9.woff2) format('woff2'),
+    url(12b1959150a1d85a1326afa99f39833f.woff) format('woff'),
+    url(d0e19a25984d8b384a56d17373b49d80.ttf) format('ttf');
+}
+@font-face {
+    font-family: 'Montserrat';
+    font-weight: 700;
+    src: local('\263A'),
+    url(17e6c37553461fa3c981ccd773c98935.woff2) format('woff2'),
+    url(2cb4b4667df8cb2beb27e722ce8acfbb.woff) format('woff'),
+    url(ff2adb60fa04164963c0cea0c1b194ae.ttf) format('ttf');
+}
+@font-face {
+    font-family: 'Montserrat';
+    font-weight: 800;
+    src: local('\263A'),
+    url(0a42696569166116a2cc7cd82d0b8a3b.woff2) format('woff2'),
+    url(b2f4aabc6723949c69662e31de1518b9.woff) format('woff'),
+    url(e92f598d124b1b668d96a506a92903c7.ttf) format('ttf');
+}
+@font-face {
+    font-family: 'Montserrat';
+    font-weight: 900;
+    src: local('\263A'),
+    url(0a42696569166116a2cc7cd82d0b8a3b.woff2) format('woff2'),
+    url(b2f4aabc6723949c69662e31de1518b9.woff) format('woff'),
+    url(e92f598d124b1b668d96a506a92903c7.ttf) format('ttf');
+}
+.app{font-size:12px;font-family:'Montserrat',sans-serif !important}
