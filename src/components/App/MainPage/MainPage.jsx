@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-// import { renderRoutes } from 'react-router-config';
-// import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import axios from 'axios';
-import { hot } from 'react-hot-loader';
-import { renderRoutes } from 'react-router-config';
-import { withRouter } from 'react-router-dom';
-import Header from './Header';
-import './norm.css';
-import './fonts.css';
-import './app.less';
+// import PropTypes from 'prop-types';
+import './mainPage.less';
 
 const propTypes = {
-  route: PropTypes.object
 };
 
-class App extends Component {
+class MainPage extends Component {
   constructor(props) {
     super(props);
 
@@ -75,15 +65,26 @@ class App extends Component {
 
   render() {
     return (
-      <div className='app'>
-        <Header />
-        <div className='app__content'>
-          {renderRoutes(this.props.route.routes)}
-        </div>
+      <div className='mainPage'>
+        ГЛАВНАЯ СТРАНИЦА ЛИЧНОГО КАБИНЕТА.
+        <form name='myForm' method='post'>
+          <p>Name: <input type='text' onChange={this.handleChangeName} placeholder='Ваше имя'/></p>
+          <p>E-mail: <input type='text' onChange={this.handleChangeMail} placeholder='Ваш mail'/></p>
+          <p>
+            <textarea
+              rows='10'
+              cols='45'
+              name='text'
+              onChange={this.handleChangeText}
+              placeholder='Ваш комментарий'
+            />
+          </p>
+          <input type='submit' onClick={this.handleSendUser}/>
+        </form>
       </div>
     );
   }
 }
 
-App.propTypes = propTypes;
-export default hot(module)(withRouter(App));
+MainPage.propTypes = propTypes;
+export default MainPage;

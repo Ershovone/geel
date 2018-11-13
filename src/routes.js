@@ -1,4 +1,7 @@
-import App from './components/App/index';
+import App from './components/App';
+import MainPage from './components/App/MainPage';
+import Login from './components/Login';
+import Registration from './components/Registration';
 
 const routes = [
   {
@@ -6,7 +9,17 @@ const routes = [
     routes: [
       {
         path: '/',
-        component: App,
+        component: MainPage,
+        exact: true
+      },
+      {
+        path: '/login',
+        component: Login,
+        exact: true
+      },
+      {
+        path: '/reg',
+        component: Registration,
         exact: true
       }
     ]
