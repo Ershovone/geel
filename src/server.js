@@ -14,6 +14,8 @@ const server  = require('http').createServer(app);
 let nodemailer = require('nodemailer');
 import { UserModel } from './models/userName';
 import passport from 'passport';
+let MongoClient = require('mongodb').MongoClient;
+let url = 'mongodb://localhost:27017/';
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
@@ -25,20 +27,26 @@ const redisClient = redis.createClient();
 
 const config = require('../config');
 
-app.post('/registration', (req, res) => {
-  if (req.body.name && req.body.email) {
+app.post('/register', (req, res) => {
+  if (req.body.name && req.body.email && req.body.phone && req.body.password) {
     let userData = {
       name: req.body.name,
-      email: req.body.email
+      email: req.body.email,
+      phone: req.body.phone,
+      password: req.body.password
     };
 
-    UserModel.create(userData, (err,  user) => {
-      if (err) {
-        return err;
-      } else {
-        return res.redirect('/profile');
-      }
-    })
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      let dbo = db.db('geelBase');
+
+      dbo.collection('users').insertOne(userData, function(error, res) {
+        if (error) throw error;
+        console.log('User added!');
+        db.close();
+      });
+    });
+    res.redirect('/');
   }
 });
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
+import axios from 'axios';
 import './mainPage.less';
 
 const propTypes = {
@@ -66,21 +67,23 @@ class MainPage extends Component {
   render() {
     return (
       <div className='mainPage'>
-        ГЛАВНАЯ СТРАНИЦА ЛИЧНОГО КАБИНЕТА.
-        <form name='myForm' method='post'>
-          <p>Name: <input type='text' onChange={this.handleChangeName} placeholder='Ваше имя'/></p>
-          <p>E-mail: <input type='text' onChange={this.handleChangeMail} placeholder='Ваш mail'/></p>
-          <p>
-            <textarea
-              rows='10'
-              cols='45'
-              name='text'
-              onChange={this.handleChangeText}
-              placeholder='Ваш комментарий'
-            />
-          </p>
-          <input type='submit' onClick={this.handleSendUser}/>
-        </form>
+        <div className='mainPage__container'>
+          ГЛАВНАЯ СТРАНИЦА ЛИЧНОГО КАБИНЕТА.
+          <form name='myForm' method='post'>
+            <p>Name: <input type='text' onChange={this.handleChangeName} placeholder='Ваше имя'/></p>
+            <p>E-mail: <input type='text' onChange={this.handleChangeMail} placeholder='Ваш mail'/></p>
+            <p>
+              <textarea
+                rows='10'
+                cols='45'
+                name='text'
+                onChange={this.handleChangeText}
+                placeholder='Ваш комментарий'
+              />
+            </p>
+            <input type='submit' onClick={this.handleSendUser}/>
+          </form>
+        </div>
       </div>
     );
   }
