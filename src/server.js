@@ -30,6 +30,61 @@ const redisClient = redis.createClient();
 const config = require('../config');
 const LocalStrategy  = require('passport-local').Strategy;
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(
+  'local',
+  new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+  }, (email, password, done) => {
+    UserModel.authenticate(email, password, (err, user) => {
+      if (err) {
+        return done(err);
+      }
+      if (!user) {
+        return done(null, false, { message: 'Invalid email or password.' });
+      }
+      return done(null, user);
+    });
+  })
+);
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  UserModel.findById(id, (err, user) => {
+    return err
+      ? done(err)
+      : done(null, user);
+  });
+});
+
+// app.post('/login', (req, res, next) => {
+//   if (!req.user) {
+//     passport.authenticate('local', (err, user, info) => {
+//       if (err || !user || user.block) {
+//         res.status(400).send(info);
+//       } else if (!user.approved) {
+//         res.status(200).send({ status: 'approve', id: user._id });
+//       } else {
+//         req.logIn(user, (error) => {
+//           if (error) {
+//             logger.log('error', error);
+//             return next(error);
+//           }
+//           return res.send({ status: 'done' });
+//         });
+//       }
+//     })(req, res, next);
+//   } else {
+//     next();
+//   }
+// });
+
 app.post('/register', (req, res) => {
   if (req.body.name && req.body.email && req.body.phone && req.body.password) {
     let userData = {
@@ -46,7 +101,8 @@ app.post('/register', (req, res) => {
         res.status(500).send(err);
       } else {
         console.log('register user success');
-        res.status(200).send(user._id);
+        return res.redirect('/');
+        // res.status(200).send(user._id);
       }
     });
     // res.redirect('/');
