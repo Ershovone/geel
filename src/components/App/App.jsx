@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { renderRoutes } from 'react-router-config';
 // import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 // import axios from 'axios';
 import { hot } from 'react-hot-loader';

@@ -4,23 +4,25 @@ import { StaticRouter } from 'react-router';
 import { renderToString } from 'react-dom/server';
 import { renderRoutes } from 'react-router-config';
 import routes from './routes.js';
-import util from 'util';
-import http from 'http';
-import https from 'https';
-import fs from 'fs';
+
 import bodyParser from 'body-parser';
 const app = express();
 const server  = require('http').createServer(app);
 let nodemailer = require('nodemailer');
-import { UserModel } from './models/userName';
+import { UserModel } from './models';
 import passport from 'passport';
-let MongoClient = require('mongodb').MongoClient;
-let url = 'mongodb://localhost:27017/';
+// let MongoClient = require('mongodb').MongoClient;
+// let url = 'mongodb://localhost:27017/geelBase';
+
+import mongoose from 'mongoose';
+let mongoDB = 'mongodb://localhost:27017/geelBase';
+mongoose.connect(mongoDB, { useNewUrlParser: true });
+mongoose.Promise = global.Promise;
+// let db = mongoose.connection;
 
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use('/', express.static('public/assets'));
-import axios from 'axios';
 
 import redis from 'redis';
 const redisClient = redis.createClient();
@@ -35,18 +37,18 @@ app.post('/register', (req, res) => {
       phone: req.body.phone,
       password: req.body.password
     };
+    let userModelInstance = new UserModel(userData);
 
-    MongoClient.connect(url, function(err, db) {
-      if (err) throw err;
-      let dbo = db.db('geelBase');
-
-      dbo.collection('users').insertOne(userData, function(error, res) {
-        if (error) throw error;
-        console.log('User added!');
-        db.close();
-      });
+    userModelInstance.save(userData, (err, user) => {
+      if (err) {
+        console.log('register user error');
+        res.status(500).send(err);
+      } else {
+        console.log('register user success');
+        res.status(200).send(user._id);
+      }
     });
-    res.redirect('/');
+    // res.redirect('/');
   }
 });
 

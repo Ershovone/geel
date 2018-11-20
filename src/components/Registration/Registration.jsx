@@ -20,7 +20,8 @@ class Registration extends Component {
       phone: '',
       password: '',
       repPass: '',
-      errors: [false, false, false, false, false]
+      errors: [false, false, false, false, false],
+      uniqueErr: false
     };
 
     this.handleChangeName = (e) => this.setState({ name: e.currentTarget.value });
@@ -62,10 +63,12 @@ class Registration extends Component {
       password: this.state.password
     })
       .then(() => {
+        this.setState({ uniqueErr: false });
         console.warn('User added!');
       })
       .catch((error) => {
-        console.log(error);
+        this.setState({ uniqueErr: true });
+        console.warn(error);
       });
   }
 
@@ -136,6 +139,9 @@ class Registration extends Component {
             </p>
             <input type='submit' onClick={this.handleRegister} />
           </form>
+          <div className={this.state.uniqueErr ? 'registration__regYet registration__regYet-open' : 'registration__regYet'}>
+            Данный e-mail или телефон уже используется.
+          </div>
         </div>
       </div>
     );
