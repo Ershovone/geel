@@ -16,30 +16,11 @@ class MainPage extends Component {
       text: ''
     };
 
-    this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleChangeName = (e) => this.setState({ name: e.currentTarget.value });
+    this.handleChangeMail = (e) => this.setState({ email: e.currentTarget.value });
+    this.handleChangeText = (e) => this.setState({ text: e.currentTarget.value });
     this.handleSendUser = this.handleSendUser.bind(this);
-    this.handleChangeMail = this.handleChangeMail.bind(this);
-    this.handleChangeText = this.handleChangeText.bind(this);
   }
-
-  handleChangeName(e) {
-    this.setState({
-      name: e.currentTarget.value
-    });
-  }
-
-  handleChangeMail(e) {
-    this.setState({
-      email: e.currentTarget.value
-    });
-  }
-
-  handleChangeText(e) {
-    this.setState({
-      text: e.currentTarget.value
-    });
-  }
-
 
   handleSendUser() {
     event.preventDefault();
