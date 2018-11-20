@@ -11,8 +11,8 @@ const server  = require('http').createServer(app);
 let nodemailer = require('nodemailer');
 import { UserModel } from './models';
 import passport from 'passport';
-// let MongoClient = require('mongodb').MongoClient;
-// let url = 'mongodb://localhost:27017/geelBase';
+import expressSession from 'express-session';
+const MongoStore = require('connect-mongo')(expressSession);
 
 import mongoose from 'mongoose';
 let mongoDB = 'mongodb://localhost:27017/geelBase';
@@ -29,6 +29,19 @@ const redisClient = redis.createClient();
 
 const config = require('../config');
 const LocalStrategy  = require('passport-local').Strategy;
+
+const store = new MongoStore({
+  url: mongoDB,
+  ttl: 2 * 60 * 60
+});
+const session = expressSession({
+  secret: config.secret,
+  resave: false,
+  saveUninitialized: false,
+  store
+});
+
+app.use(session);
 
 app.use(passport.initialize());
 app.use(passport.session());
