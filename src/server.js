@@ -28,6 +28,7 @@ import redis from 'redis';
 const redisClient = redis.createClient();
 
 const config = require('../config');
+const LocalStrategy  = require('passport-local').Strategy;
 
 app.post('/register', (req, res) => {
   if (req.body.name && req.body.email && req.body.phone && req.body.password) {
