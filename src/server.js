@@ -63,27 +63,27 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-// app.post('/login', (req, res, next) => {
-//   if (!req.user) {
-//     passport.authenticate('local', (err, user, info) => {
-//       if (err || !user || user.block) {
-//         res.status(400).send(info);
-//       } else if (!user.approved) {
-//         res.status(200).send({ status: 'approve', id: user._id });
-//       } else {
-//         req.logIn(user, (error) => {
-//           if (error) {
-//             logger.log('error', error);
-//             return next(error);
-//           }
-//           return res.send({ status: 'done' });
-//         });
-//       }
-//     })(req, res, next);
-//   } else {
-//     next();
-//   }
-// });
+app.post('/login', (req, res, next) => {
+  if (!req.user) {
+    passport.authenticate('local', (err, user, info) => {
+      if (err || !user || user.block) {
+        res.status(400).send(info);
+      } else if (!user.approved) {
+        res.status(200).send({ status: 'approve', id: user._id });
+      } else {
+        req.logIn(user, (error) => {
+          if (error) {
+            logger.log('error', error);
+            return next(error);
+          }
+          return res.send({ status: 'done' });
+        });
+      }
+    })(req, res, next);
+  } else {
+    next();
+  }
+});
 
 app.post('/register', (req, res) => {
   if (req.body.name && req.body.email && req.body.phone && req.body.password) {
